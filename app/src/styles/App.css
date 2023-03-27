@@ -1,0 +1,50 @@
+/* 변수선언 */
+:root {
+  /* Color */
+  --white-color: #c9c9c9;
+  --black-color: #0f0f0f;
+  --blue-color: #1b72e9;
+  --red-color: #ff0000;
+  --grey-dark-color: #484848;
+  --grey-light-color: #D3D3D3;
+
+  /* Size */
+  --padding: 12px;
+  --avatar-size: 36px;
+
+  /* Font Size */
+  --font-large: 18px;
+  --font-medium: 14px;
+  --font-small: 12px;
+  --font-micro: 10px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Roboto;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Header */
+header {
+  display: flex;
+  /* you are flexbox */
+  justify-content: space-between;
+  padding: var(--padding);
+  background-color: var(--black-color);
+  color: var(--white-color);
+}
+
+.profile {
+  width: 150px;
+  height: 150px;
+  border-radius: 115px;
+}
