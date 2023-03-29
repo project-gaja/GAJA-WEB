@@ -9,7 +9,7 @@ const HomeContainer = () => {
 
   return (
     <div>
-      <h1>BOX</h1>
+      <div className='box'></div>
       <button>NAVER</button>
       <button>카카오톡</button>
       <button>Apple</button>

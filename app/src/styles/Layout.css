@@ -31,6 +31,35 @@
   padding-top: 80px;
 }
 
+.main {
+  min-height: calc(100vh - 180px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main>div>.box {
+  width: 200px;
+  height: 200px;
+  outline: 2px solid black;
+  margin-bottom: 50px;
+}
+
+.main>div>button,
+a {
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+  width: 200px;
+  text-align: center;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+}
+
+/* footer */
 .footer {
   height: 100%;
   margin-top: auto;
@@ -40,8 +69,4 @@
 .title {
   font-weight: 600;
   font-size: 20px;
-}
-
-.main {
-  min-height: calc(100vh - 180px);
 }
