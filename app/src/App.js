@@ -5,6 +5,7 @@ import Home from './component/Home';
 import Join from './component/Join';
 import PswordUpdate from './component/PswordUpdate';
 import Mypage from './component/MyPage';
+import ScheduleCreation from './component/ScheduleCreation';
 
 export default function App() {
   const userId = 'admin';
@@ -16,6 +17,7 @@ export default function App() {
         <Route path='/join' element={<Join />} />
         <Route path='/pswordUpdate' element={<PswordUpdate />} />
         <Route path='/mypage' element={<Mypage />} />
+        <Route path='/ScheduleCreation' element={<ScheduleCreation />} />
       </Routes>
     </>
   );
