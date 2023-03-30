@@ -1,50 +1,60 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/Mypage.css'
-import Layout from '../component/layout/Layout';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser, faHouse, faMagnifyingGlass, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 
-const MyPage = () => {
+const MyPage = (userInfo) => {
   return (
-    <Layout>
+    <div>
       <header>
-        마이페이지
+        <div className='title'>
+          <span>마이페이지</span>
+        </div>
+        <div className='icons'>
+          <FontAwesomeIcon icon={faUser} size="2x" />
+        </div>
       </header>
-      <div>
-        <img src="" />
-      </div>
-      <div>
-        <span>라부장</span>
-        <i></i>
-        <span>수정</span>
-      </div>
-      <div>
-        <ul>
-          <li>일정</li>
-          <li>구독</li>
-          <li>포인트</li>
-        </ul>
-        <ul>
-          <li>11</li>
-          <li>15</li>
-          <li>300</li>
-        </ul>
-      </div>
-      <div>
-        <div>내일정</div>
-        <div>가져온 일정</div>
-      </div>
-      <div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <footer>
-        <i></i>
-        <i></i>
-        <i></i>
-        <i></i>
-        <i></i>
+
+      <section className='info'>
+        <div className='metadata'>
+          <span className='user-name'>라부장</span>
+          <FontAwesomeIcon icon={faUser} />
+          <span className='update-button'>수정</span>
+        </div>
+        <div>
+          <ul>
+            <li>일정<span>11</span></li>
+            <li>구독<span>150</span></li>
+            <li>포인트<span>300</span></li>
+          </ul>
+        </div>
+      </section>
+      <section className='actions'>
+        <div className='plan'>
+          <div className='my-plan'>내일정</div>
+          <div className='your-plan'>가져온 일정</div>
+        </div>
+        <div className='plan-list'>
+          <div className='plan-list1'>
+            <img src="https://www.kagoshima-kankou.com/storage/tourism_themes/12/responsive_images/ElwnvZ2u5uZda7Pjcwlk4mMtr08kLNydT8zXA6Ie__1673_1115.jpeg" />
+          </div>
+          <div className='plan-list2'>
+            <img src="https://www.kagoshima-kankou.com/storage/tourism_themes/12/responsive_images/ElwnvZ2u5uZda7Pjcwlk4mMtr08kLNydT8zXA6Ie__1673_1115.jpeg" />
+          </div>
+          <div className='plan-list3'>
+            <img src="https://www.kagoshima-kankou.com/storage/tourism_themes/12/responsive_images/ElwnvZ2u5uZda7Pjcwlk4mMtr08kLNydT8zXA6Ie__1673_1115.jpeg" />
+          </div>
+        </div>
+      </section>
+
+      <footer className='footer-bar'>
+        <FontAwesomeIcon icon={faHouse} size="2x" />
+        <FontAwesomeIcon icon={faMagnifyingGlass} size="2x" />
+        <FontAwesomeIcon icon={faPlus} size="2x" />
+        <FontAwesomeIcon icon={faCheck} size="2x" />
+        <FontAwesomeIcon icon={faUser} size="2x" />
       </footer>
-    </Layout>
+    </div>
   )
 }
 

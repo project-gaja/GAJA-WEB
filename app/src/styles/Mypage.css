@@ -1,6 +1,133 @@
+/* 변수선언 */
+:root {
+  /*color*/
+  --white-color: #c9c9c9;
+
+  /*size*/
+  --padding: 12px;
+  --avatar-size: 100px;
+
+  /*font size*/
+  --font-large: 18px;
+  --font-medium: 14px;
+  --font-small: 12px;
+  --font-micro: 10px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Roboto;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  margin-left: var(--padding);
+}
+
+ul li {
+  display: flex;
+  flex-direction: column;
+  margin: var(--padding);
+  text-align: center;
+  font-size: var(--font-medium);
+}
+
+button,
+button:focus {
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background-color: var(--white-color);
+}
+
+/* Header */
 header {
+  padding: var(--padding);
+  font-size: var(--font-large);
+}
+
+header .title {
   display: flex;
   justify-content: center;
+}
+
+header .icons {
+  display: flex;
+  justify-content: center;
+}
+
+header .icons svg {
+  background-color: #c9c9c9;
+  padding: var(--padding);
+  border-radius: 50%;
+}
+
+.info {
+  background-color: #c9c9c9;
+}
+
+.info .metadata {
+  display: flex;
+  justify-content: center;
+}
+
+.info .metadata .user-name {
+  font-size: 25px;
+  margin-right: var(--padding);
+}
+
+.info .metadata .update-button {
+  font-size: var(--font-small);
+}
+
+.actions .plan {
+  display: flex;
+  justify-content: space-around;
+  margin-top: var(--padding);
+  font-size: var(--font-medium);
+}
+
+.my-plan {
+  border: 1px solid grey;
+  padding: calc(var(--padding)-2px);
+  width: var(--avatar-size);
+  text-align: center;
+}
+
+.your-plan {
+  border: 1px solid grey;
+  padding: calc(var(--padding)-2px);
+  width: var(--avatar-size);
+  text-align: center;
+}
+
+.plan-list {
+  display: flex;
+  height: 100%;
+  min-height: 200px;
+}
+
+.plan-list img {
+  display: flex;
+  justify-content: space-between;
+  max-width: 160px;
+  margin-right: var(--padding);
   margin-top: 5px;
-  position: fixed;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  background-color: #c9c9c9;
+}
+
+footer svg {
+  margin: 20px;
 }
