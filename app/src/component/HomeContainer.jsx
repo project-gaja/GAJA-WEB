@@ -15,6 +15,14 @@ const HomeContainer = () => {
       <button>Apple</button>
       <button onClick={goLoginPage}>로그인</button>
       <Link to="/join">가입하기</Link>
+      <button onClick={goLoginPage}>로그인</button>
+      <Link to="/join">가입하기</Link>
+      <button onClick={goLoginPage}>로그인</button>
+      <Link to="/join">가입하기</Link>
+      <button onClick={goLoginPage}>로그인</button>
+      <Link to="/join">가입하기</Link>
+      <button onClick={goLoginPage}>로그인</button>
+      <Link to="/join">가입하기</Link>
     </div>
   )
 }

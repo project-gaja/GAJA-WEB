@@ -1,6 +1,6 @@
 import React from 'react'
-import HomeContainer from './HomeContainer';
-import Layout from './layout/Layout';
+import HomeContainer from '../component/HomeContainer';
+import Layout from '../component/layout/Layout';
 
 const Home = () => {
 

@@ -1,10 +1,10 @@
 import React from "react";
 import { Navigate, Route, Routes } from 'react-router';
-import Login from './component/Login';
-import Home from './component/Home';
-import Join from './component/Join';
-import PswordUpdate from './component/PswordUpdate';
-import Mypage from './component/MyPage';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import Join from './pages/Join';
+import PswordUpdate from './pages/PswordUpdate';
+import Mypage from './pages/MyPage';
 import ScheduleCreation from './component/ScheduleCreation';
 
 export default function App() {
