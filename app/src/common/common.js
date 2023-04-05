@@ -2,13 +2,18 @@ import axios from 'axios';
 
 
 /**
- * 공통함수 메소드
+ * 공통함수 모음
  * @date   		    : 2023.03.23
  * @author   		: hosung98
  * ----------------------------------------
  */  
 export default { 
-    //뷰포트 설정
+    /**
+     * 뷰 포트 설정 (inputbox 포커스 시 확대 금지)
+     * @date   		    : 2023.04.25
+     * @author   		: hosung98
+     * ----------------------------------------
+     */  
     viewportset:function () {
         const meta = document.createElement('meta');
         meta.name = "viewport";
