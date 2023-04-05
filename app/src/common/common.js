@@ -1,3 +1,4 @@
+import axios from 'axios';
 /**
  * 공통함수 메소드
  * @date   		    : 2023.03.23
@@ -5,12 +6,37 @@
  * ----------------------------------------
  */   
 
-module.exports = {
+export default { 
     //뷰포트 설정
     viewportset:function () {
         const meta = document.createElement('meta');
         meta.name = "viewport";
         meta.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover";
         document.getElementsByTagName('head')[0].appendChild(meta);  
+    },
+    axiosReq:function(url, method, data){
+        return new Promise(function(resolve, reject) {
+            let config = {
+              method: method,
+              url: url,
+              data: data
+            };
+            axios(config)
+              .then(response => {
+                resolve(response.data);
+              })
+              .catch(error => {
+                reject(error);
+              });
+        });
+    },
+    /*
+        시간을 YYYY-MM-DD 형식을 변환
+    */
+    dateformat:function(date){
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;        
     }
 }

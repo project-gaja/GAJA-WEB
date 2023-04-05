@@ -1,14 +1,19 @@
 import { DateRange } from 'react-date-range';
-import Select from 'react-select'
-import React, {  useState } from "react";
-import 'react-date-range/dist/styles.css'; // main css file
+import React, { useState } from "react";
+import 'react-date-range/dist/styles.css';        // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import './../styles/ScheduleCreation.css';
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import com from '../common/common';
 
 
-const com = require('../common/common');
 
 const ScheduleCreation = (props) => {
+  //캘린더
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -17,30 +22,77 @@ const ScheduleCreation = (props) => {
     }
   ]);
 
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ];
+  //콤보박스
+  const [station, setAge] = React.useState('');
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
+  //뷰포트 설정
   com.viewportset();  
 
-  let fn_crSchedule = () =>{
-    alert("값 : " + document.getElementById("name").value);
+  //일정등록
+  let fn_crSchedule =  async () =>{
+    debugger;
+    let title = document.getElementById("name").value; //제목
+    let destination = station;                         //여행지
+    var btMs = state[0].endDate.getTime() - state[0].startDate.getTime() ;
+    var btDay = btMs / (1000*60*60*24) +1;             //일자 차이
+    
+    var startdate = com.dateformat(state[0].startDate); //시작일자
+    var endDate = com.dateformat(state[0].endDate);     //종료일자
+    
+    var formdata = {
+      "title"       : title,
+      "destination" : destination,
+      "btDay"       : btDay,
+      "startdate"   : startdate,
+      "endDate"     : endDate, 
+    };
+     
+    var result = await com.axiosReq('http://192.168.1.101:3001/healthCheck','GET',formdata);
+    console.log(JSON.stringify(result));
     
   };
+
+
   return (
     <div className='container'>
       <div className='box'>
         <h4 className='title'>😁여행에 제목은 무엇인가요?</h4>
-        <input className='inputbox' type="text" id="name" name="name" required minlength="4" maxlength="8" ></input>
+        {/* <input className='inputbox' type="text" id="name" name="name" required minlength="4" maxlength="8" ></input> */}
+        <TextField id="name" label="" variant="standard" />
       </div>
          
       <div className='box'>
         <h4 className='title'>어디로🏖️ 여행을 떠나나요?</h4>
-        <form >
-        <Select className='combox' id='combo' options={options} />
-        </form>
+                
+        {/* <Select
+          labelId="demo-simple-select-autowidth-label"
+          className='combox'
+          value={station}
+          onChange={handleChange}
+          autoWidth
+        >
+          <MenuItem value=""><em>None</em></MenuItem>
+          <MenuItem value={"서울"}>서울</MenuItem>
+          <MenuItem value={"부산"}>부산</MenuItem>
+        </Select> */}
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={station}
+          onChange={handleChange}
+          label=""
+          className='combox'
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
       </div>
       <div className='box'>
         <h4 className='title'>여행은 얼마나 떠나요?📅</h4>
@@ -52,9 +104,11 @@ const ScheduleCreation = (props) => {
           style={{ width: '100%' }}
         />
       </div>
-      <button className='button' onClick={fn_crSchedule}>
-          여행 떠나기
-      </button>
+
+      
+      <Button className='button' variant="contained" endIcon={<SendIcon />} onClick={fn_crSchedule}>
+        여행 떠나기
+      </Button>
     </div>
   )
 }

@@ -17,7 +17,7 @@ export default function App() {
         <Route path='/join' element={<Join />} />
         <Route path='/pswordUpdate' element={<PswordUpdate />} />
         <Route path='/mypage' element={<Mypage />} />
-        <Route path='/ScheduleCreation' element={<ScheduleCreation />} />
+        <Route path='/scheduleCreation' element={<ScheduleCreation />} />
       </Routes>
     </>
   );
