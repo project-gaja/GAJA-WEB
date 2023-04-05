@@ -1,9 +1,53 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../styles/Mypage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faHouse, faMagnifyingGlass, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
+import PlanCard from '../component/PlanCard'
 
-const MyPage = (userInfo) => {
+const MyPage = (userId) => {
+  const [userInfo, setUserInfo] = useState(null);
+  const [planInfo, setPlanInfo] = useState([]);
+
+  const getUserInfo = async () => {
+    /*
+    let url = `http://localhost:3001/mypage`;
+    const response = await fetch(url);
+    let data = await response.json();
+    */
+    let userInfo = {
+      'userName': '라부장',
+      'planCnt': '10',
+      'subscribeCnt': '153',
+      'point': 300,
+    }
+    setUserInfo(userInfo);
+  }
+  const getPlanInfo = async () => {
+    let planInfo = [
+      {
+        'planSeq': '1',
+        'planName': '제주도',
+        'planImgInfo': 'https://youimg1.tripcdn.com/target/100a0e0000006zype378A_C_640_320_R5_Q70.jpg_.webp?proc=source%2Ftrip153',
+      },
+      {
+        'planSeq': '2',
+        'planName': '부산',
+        'planImgInfo': 'https://a.cdn-hotels.com/gdcs/production127/d256/7199707a-c1e3-4993-a4e7-e3f10af6ab63.jpg',
+      },
+      {
+        'planSeq': '3',
+        'planName': '일본',
+        'planImgInfo': 'https://a.cdn-hotels.com/gdcs/production183/d421/262e6436-4f75-4679-9c67-0d42b3821489.jpg',
+      },
+    ]
+    setPlanInfo(planInfo);
+  };
+
+  useEffect(() => {
+    getUserInfo();
+    getPlanInfo();
+  }, '')
+
   return (
     <div>
       <header>
@@ -17,15 +61,15 @@ const MyPage = (userInfo) => {
 
       <section className='info'>
         <div className='metadata'>
-          <span className='user-name'>라부장</span>
+          <span className='user-name'>{userInfo?.userName}</span>
           <FontAwesomeIcon icon={faUser} />
           <span className='update-button'>수정</span>
         </div>
         <div>
           <ul>
-            <li>일정<span>11</span></li>
-            <li>구독<span>150</span></li>
-            <li>포인트<span>300</span></li>
+            <li>일정<span>{userInfo?.planCnt}</span></li>
+            <li>구독<span>{userInfo?.subscribeCnt}</span></li>
+            <li>포인트<span>{userInfo?.point}</span></li>
           </ul>
         </div>
       </section>
@@ -34,17 +78,7 @@ const MyPage = (userInfo) => {
           <div className='my-plan'>내일정</div>
           <div className='your-plan'>가져온 일정</div>
         </div>
-        <div className='plan-list'>
-          <div className='plan-list1'>
-            <img src="https://www.kagoshima-kankou.com/storage/tourism_themes/12/responsive_images/ElwnvZ2u5uZda7Pjcwlk4mMtr08kLNydT8zXA6Ie__1673_1115.jpeg" />
-          </div>
-          <div className='plan-list2'>
-            <img src="https://www.kagoshima-kankou.com/storage/tourism_themes/12/responsive_images/ElwnvZ2u5uZda7Pjcwlk4mMtr08kLNydT8zXA6Ie__1673_1115.jpeg" />
-          </div>
-          <div className='plan-list3'>
-            <img src="https://www.kagoshima-kankou.com/storage/tourism_themes/12/responsive_images/ElwnvZ2u5uZda7Pjcwlk4mMtr08kLNydT8zXA6Ie__1673_1115.jpeg" />
-          </div>
-        </div>
+        <PlanCard data={planInfo} />
       </section>
 
       <footer className='footer-bar'>

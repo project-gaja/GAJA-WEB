@@ -49,6 +49,7 @@ button:focus {
 
 /* Header */
 header {
+  margin-top: 30px;
   padding: var(--padding);
   font-size: var(--font-large);
 }
@@ -96,14 +97,14 @@ header .icons svg {
 
 .my-plan {
   border: 1px solid grey;
-  padding: calc(var(--padding)-2px);
+  padding: var(--padding);
   width: var(--avatar-size);
   text-align: center;
 }
 
 .your-plan {
   border: 1px solid grey;
-  padding: calc(var(--padding)-2px);
+  padding: var(--padding);
   width: var(--avatar-size);
   text-align: center;
 }
@@ -111,13 +112,13 @@ header .icons svg {
 .plan-list {
   display: flex;
   height: 100%;
-  min-height: 200px;
+  min-height: 420px;
 }
 
 .plan-list img {
   display: flex;
   justify-content: space-between;
-  max-width: 160px;
+  max-width: 110px;
   margin-right: var(--padding);
   margin-top: 5px;
 }
