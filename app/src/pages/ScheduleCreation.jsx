@@ -9,10 +9,10 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import com from '../common/common';
-
-
+import { useNavigate } from 'react-router-dom';
 
 const ScheduleCreation = (props) => {
+  const navigate = useNavigate();
   //캘린더
   const [state, setState] = useState([
     {
@@ -52,12 +52,16 @@ const ScheduleCreation = (props) => {
      
     var result = await com.axiosReq('http://192.168.1.101:3001/healthCheck','GET',formdata);
     console.log(JSON.stringify(result));
+
+
     
+    navigate('/scheduling');
   };
 
 
   return (
     <div className='container'>
+      
       <div className='box'>
         <h4 className='title'>😁여행에 제목은 무엇인가요?</h4>
         {/* <input className='inputbox' type="text" id="name" name="name" required minlength="4" maxlength="8" ></input> */}
