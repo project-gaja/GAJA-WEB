@@ -1,0 +1,4 @@
+.contain {
+    background-color: red;
+    height: calc(100vh - 20px); /* 브라우저 창의 높이에서 20px 빼기 */
+  }

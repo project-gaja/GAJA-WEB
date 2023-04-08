@@ -55,8 +55,10 @@ const ScheduleCreation = (props) => {
 
 
     
-    navigate('/scheduling');
+    navigate('/scheduling', { state: { data: btDay } });
   };
+
+  
 
 
   return (
