@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from 'react-router';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -11,12 +11,14 @@ import Scheduling from './pages/Scheduling';             //일정작성 페이�
 
 
 export default function App() {
-  const userId = 'admin';
+  const [authenticate, setAuthenticate] = useState(false);
+  useEffect(() => {
+  }, [authenticate]) // authenticate 값이 바뀔때마다 확인
   return (
     <>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login setAuthenticate={setAuthenticate} />} />
         <Route path='/join' element={<Join />} />
         <Route path='/pswordUpdate' element={<PswordUpdate />} />
         <Route path='/mypage' element={<Mypage />} />

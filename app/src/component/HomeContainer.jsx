@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Logo from '../asserts/images/logo.png';
 import '../styles/button.css';
@@ -34,7 +33,7 @@ const HomeContainer = () => {
           <button className='apple-login-button'>Apple</button>
         </Row>
         <Row>
-          <button className='login-button'>로그인</button>
+          <button className='login-button' onClick={goLoginPage}>로그인</button>
         </Row>
         <Row className='last-link'>
           <Link to="/join">가입하기</Link>
