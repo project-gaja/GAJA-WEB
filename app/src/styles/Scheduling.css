@@ -2,3 +2,26 @@
     background-color: red;
     height: calc(100vh - 20px); /* 브라우저 창의 높이에서 20px 빼기 */
   }
+
+.test{
+  width: 100%;
+  height: 200px;
+  background-color: black;
+}
+.coverbtn{
+  margin-left: 75%;
+  margin-top: 40%;
+  text-align: right;
+  width: 20%;
+  height: 15%;
+  text-align: center;
+  border-style: none;
+  border-radius: 5px;
+}
+.textedit{
+  width: 95%;
+  margin: auto;
+  height: 60%;
+  margin-top: 15%;
+  background-color: blueviolet;
+}

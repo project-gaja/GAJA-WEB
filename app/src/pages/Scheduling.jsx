@@ -13,7 +13,12 @@ const Scheduling = () => {
 
   const slides = Array.from({ length: data }, (_, index) => (
     <SwiperSlide key={index}>
-      <div className='contain'>{`page${index + 1}`}</div>
+      <div className='contain'>
+      <div className='test'>
+        <button className='coverbtn'>커버 변경</button>
+      </div>
+      <div className='textedit'></div>
+      </div>
     </SwiperSlide>
   ));
 
@@ -24,7 +29,9 @@ const Scheduling = () => {
       navigation
       pagination={{ clickable: true }}
     >
+      
       {slides}
+      
     </Swiper>
   );
 };
