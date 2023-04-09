@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import '../styles/Mypage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faHouse, faMagnifyingGlass, faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
 import PlanCard from '../component/PlanCard'
