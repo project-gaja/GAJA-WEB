@@ -5,7 +5,7 @@
     width: 80%;
     height: 100%;
     text-align: center;
-    margin-top: 15%;
+    /* margin-top: 15%; */
     
     padding: 20px 20px 20px 20px;
 }
@@ -24,9 +24,6 @@
     text-align: left;
     border-style: solid 1px;
     border-color:silver;
-}
-.box{
-    margin-bottom: 40px;
 }
 .title{
     text-align: left;

@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import com from '../common/common';
 import { useNavigate } from 'react-router-dom';
+import { API_LOCAL_URL } from './../common/constants'; 
 
 const ScheduleCreation = (props) => {
   const navigate = useNavigate();
@@ -49,8 +50,9 @@ const ScheduleCreation = (props) => {
       "startdate"   : startdate,
       "endDate"     : endDate, 
     };
-     
-    var result = await com.axiosReq('http://192.168.1.101:3001/healthCheck','GET',formdata);
+    
+    
+    var result = await com.axiosReq( API_LOCAL_URL + '/healthCheck','GET',formdata);
     console.log(JSON.stringify(result));
 
 
