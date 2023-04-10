@@ -15,9 +15,13 @@ const Scheduling = () => {
     <SwiperSlide key={index}>
       <div className='contain'>
       <div className='test'>
-        <button className='coverbtn'>커버 변경</button>
+        <button className='coverbtn'>템플릿 변경</button>
       </div>
       <div className='textedit'></div>
+      <div className='footer'>
+      <button className='addbtn'>일정등록</button>  
+      </div>
+      
       </div>
     </SwiperSlide>
   ));
