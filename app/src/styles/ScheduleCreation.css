@@ -1,10 +1,24 @@
-.container{
+
+
+@font-face {
+    font-family: "regular";
+    src: url(../asserts/font/Jua-Regular.ttf);
+  }
+  
+
+  .box{
+    width: 100%;
+    /* background-color: yellow; */
+  }
+
+  .container{
     /* background-color: red; */
     margin: 0 auto;
     padding: 0;
     width: 80%;
     height: 100%;
     text-align: center;
+    font-family: "regular";
     margin-top: 10%;
     
     padding: 20px 20px 20px 20px;
@@ -15,7 +29,8 @@
     width: 100%;
     height: 35px;
     text-align: center;
-    border-style: solid 1px;
+    border-style: solid 1px ;
+    
 }
 
 .inputbox{
@@ -25,7 +40,9 @@
     border-style: solid 1px;
     border-color:silver;
 }
-.title{
+.title99{
+    width: 80%;
+    /* background-color: rebeccapurple; */
     text-align: left;
 }
 .button{
@@ -35,8 +52,8 @@
     border-style: none;
     /* background-color:black; */
     color: white;      
-    background-image: url(./../asserts/images/template.jpeg);
-    font-family: Arial, Helvetica, sans-serif;
+    /* background-image: url(./../asserts/images/template.jpeg); */
+    font-family: "regular";
     font-size: 14px;
     
     border-radius: 5px;

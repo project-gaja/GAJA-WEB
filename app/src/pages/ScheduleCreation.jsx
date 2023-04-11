@@ -67,13 +67,13 @@ const ScheduleCreation = (props) => {
     <div className='container'>
       
       <div className='box'>
-        <h4 className='title'>😁여행에 제목은 무엇인가요?</h4>
+        <h4 className='title99'>😁여행에 제목은 무엇인가요?</h4>
         {/* <input className='inputbox' type="text" id="name" name="name" required minlength="4" maxlength="8" ></input> */}
         <TextField id="name" label="" variant="standard" />
       </div>
          
       <div className='box'>
-        <h4 className='title'>어디로🏖️ 여행을 떠나나요?</h4>
+        <h4 className='title99'>어디로🏖️ 여행을 떠나나요?</h4>
                 
         {/* <Select
           labelId="demo-simple-select-autowidth-label"
@@ -103,7 +103,7 @@ const ScheduleCreation = (props) => {
         </Select>
       </div>
       <div className='box'>
-        <h4 className='title'>여행은 얼마나 떠나요?📅</h4>
+        <h4 className='title99'>여행은 얼마나 떠나요?📅</h4>
         <DateRange
           editableDateInputs={true}
           onChange={item => setState([item.selection])}
