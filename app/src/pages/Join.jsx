@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import styled from "styled-components";
@@ -22,7 +22,13 @@ const Join = () => {
 
   const [emailSent, setEmailSent] = useState('');
   const [loading, setLoading] = useState(false);
-  let sendCheck = false;
+  const [sendCheck, setSendCheck] = useState(false);
+  const [random, setRandom] = useState("000000");
+  const [email, setEmail] = useState('');
+
+  const [emailMessage, setEmailMessage] = useState('');
+
+  const [isEmail, setIsEmail] = useState(false);
 
   const sendEmail = async () => {
     setLoading(true);
@@ -32,12 +38,28 @@ const Join = () => {
     }
     let result = await com.axiosReq(url, 'POST', data);
     console.log(JSON.stringify(result));
-    sendCheck = true;
+    setSendCheck(true);
+    setLoading(false);
+    setRandom(String(Math.floor(Math.random() * 1000000)).padStart(6, "0"));
+    console.log(random, 'random');
   };
 
-  const handlerEmailSent = (event) => {
-    setEmailSent(event.target.value);
-  };
+  // 이메일
+  const onChangeEmail = useCallback((e) => {
+    console.log(e.target.value);
+    console.log(e.target);
+    const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
+
+    if (!emailRegex.test(emailCurrent)) {
+      setEmailMessage('이메일 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ')
+      setIsEmail(false)
+    } else {
+      setEmailMessage('올바른 이메일 형식이에요 : )')
+      setIsEmail(true)
+    }
+  }, [])
 
   return (
     <>
@@ -46,7 +68,8 @@ const Join = () => {
           <h3>회원가입</h3>
         </Row>
         < Row >
-          <InputBox type="text" id="username" placeholder={emailSent ? "인증코드  00:41" : "이메일"} value={emailSent} onChange={handlerEmailSent} />
+          <InputBox type="text" onChange={onChangeEmail} value={email} />
+          {email.length > 0 && <span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>}
         </Row>
         <Row>
           {loading ? <ClipLoader color='f88c6b' loading={loading} size={20} /> :
@@ -55,7 +78,7 @@ const Join = () => {
           }
         </Row>
         <Row>
-          <Link to="/join">{emailSent ? '인증코드 재전송' : ''}</Link>
+          <Link to="/join">{emailSent && sendCheck ? '인증코드 재전송' : ''}</Link>
         </Row>
       </Container>
     </>
