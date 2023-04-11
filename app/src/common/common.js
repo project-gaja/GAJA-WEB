@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_LOCAL_URL } from './../common/constants'; 
+import { API_LOCAL_URL } from './../common/constants';
 
 /**
  * 공통함수 모음
@@ -35,7 +35,11 @@ export default {
       url: url,
       data: data
     };
-    return axios(config).then(response => response.data);
+    return axios(config)
+      .then(response => response.data)
+      .catch(error => {
+        console.log(error);
+      });;
   },
 
   /**
@@ -58,11 +62,11 @@ export default {
    * @date               : 2023.04.25
    * @description     : IP 주소 가져오는 메소드
    */
-  getIPAddress: async function() {
+  getIPAddress: async function () {
     debugger;
     const res = await axios.get('https://geolocation-db.com/json/')
-    .then((res) => {
-      console.log("data : ", res)
-    })
+      .then((res) => {
+        console.log("data : ", res)
+      })
   }
 };

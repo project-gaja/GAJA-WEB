@@ -5,6 +5,7 @@ import styled from "styled-components";
 import '../styles/button.css';
 import axios from 'axios';
 import ClipLoader from "react-spinners/ClipLoader";
+import com from '../common/common';
 
 const Join = () => {
   const InputBox = styled.input`
@@ -23,23 +24,15 @@ const Join = () => {
   const [loading, setLoading] = useState(false);
   let sendCheck = false;
 
-  const sendEmail = () => {
+  const sendEmail = async () => {
     setLoading(true);
     const url = 'http://localhost:3001/send-email';
     const data = {
       email: { emailSent },
     }
-
-    axios.post(url, data)
-      .then(response => {
-        console.log(response.data);
-        setLoading(false);
-        sendCheck = true;
-      })
-      .catch(error => {
-        console.log(error);
-        sendCheck = false;
-      });
+    let result = await com.axiosReq(url, 'POST', data);
+    console.log(JSON.stringify(result));
+    sendCheck = true;
   };
 
   const handlerEmailSent = (event) => {
