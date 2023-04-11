@@ -1,48 +1,123 @@
+@font-face {
+  font-family: "regular";
+  src: url(../asserts/font/Jua-Regular.ttf);
+}
 
 
+.swiper-wrapper{
+  font-family: "regular";
+}
 .contain {
-    background-color: red;
+    /* background-color: red; */
     height: calc(100vh - 20px); /* 브라우저 창의 높이에서 20px 빼기 */
   }
 
 .test{
   width: 100%;
-  height: 200px;
+  /* margin-top: 15%; */
+  height: 20%;
+  border-radius: 50px 50px 00px 00px;
   /* background-color: black; */
   background-image: url(./../asserts/images/template.jpeg);
   background-repeat : no-repeat;
   background-size : cover;  
 }
 .coverbtn{
-  margin-left: 78%;
-  margin-top: 43%;
+  margin-left: 73%;
+  margin-top: 35%;
   text-align: right;
-  width: 20%;
-  height: 15%;
+  font-family: "regular";
+  width: 25%;
+  height: 18%;
   text-align: center;
   border-style: none;
-  border-radius: 5px;
   background-color: black;
+  border-radius: 10px 10px 10px 10px;
   color: white;
   font-style: bold;
 }
-.textedit{
-  width: 95%;
-  margin: auto;
+.topdiv{
+  width: 100%;
   height: 50%;
-  margin-top: 15%;
+  /* background-color:aqua;   */
+}
+.title{
+  /* background-color: white; */
+  margin: 0;
+  padding-top: 20px;
+  font-size: 20px;
+  width: 70%;
+}
+.title1{
+  /* background-color: white; */
+  margin: 0;
+  /* padding-top: 20px; */
+  font-family: "regular";
+  font-size: 20px;
+  width: 70%;  
+}
+.bottomdiv {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 50px;
+  border-bottom: 2px solid grey;
+}
+
+.bottomdiv p {
+  margin-top: 10px;
+}
+.bottomdiv button {
+  margin-right: 10px;
+}
+.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+  height:350px;
+}
+.topcon{
+  width: 100%;
+  height: 15%;
+  /* background-color: red; */
+}
+.textedit{
+  width: 100%;
+  margin: auto;
+  height:50%;
   background-color: blueviolet;
+
 }
 
 .footer{
-  width: 95%;
-  background-color: yellow;
-  height: 4%;
-  margin: 20px auto;
+  width: 100%;
+  background-color: white;
+  height:6%;
+  margin: 50px auto;
 }
 .addbtn{
   width: 100%;
   height: 100%;
   border-style: none;
-  border-radius: 10px;
+  font-family: "regular";
+  font-size: 15px;
+  color: white;
+  background-color:black;
+  border-radius: 0px 0px 15px 15px;
+  border-radius: px;
+}
+.locbtn{
+  width: 100px;
+  height: 30px;
+  border-style: none;
+  background-color: black;
+  color: white;
+  border-radius: 10px 0px 0px 10px;
+  font-family: "regular";
+}
+.potobtn{
+  width: 100px;
+  height: 30px;  
+  border-style: none;
+  background-color: black;  
+  font-family: "regular";
+  color: white;
+  border-radius: 0px 10px 10px 0px;
 }

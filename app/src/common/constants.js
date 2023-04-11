@@ -5,5 +5,5 @@
  * ----------------------------------------
  */
 
-export const API_LOCAL_URL = 'http://localhost:3001';
+export const API_LOCAL_URL = 'http://192.168.1.101:3001';
 export const MAX_RESULTS = 10;
