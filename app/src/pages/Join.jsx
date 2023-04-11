@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import styled from "styled-components";
 import '../styles/button.css';
 import axios from 'axios';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Join = () => {
   const InputBox = styled.input`
@@ -18,16 +19,31 @@ const Join = () => {
     font-size: 16px;
   `;
 
-  const [emailSent, setEmailSent] = useState(false);
+  const [emailSent, setEmailSent] = useState('');
+  const [loading, setLoading] = useState(false);
+  let sendCheck = false;
+
   const sendEmail = () => {
-    axios.post('http://localhost:3001/send-email')
+    setLoading(true);
+    const url = 'http://localhost:3001/send-email';
+    const data = {
+      email: { emailSent },
+    }
+
+    axios.post(url, data)
       .then(response => {
         console.log(response.data);
-        setEmailSent(true);
+        setLoading(false);
+        sendCheck = true;
       })
       .catch(error => {
         console.log(error);
+        sendCheck = false;
       });
+  };
+
+  const handlerEmailSent = (event) => {
+    setEmailSent(event.target.value);
   };
 
   return (
@@ -36,11 +52,17 @@ const Join = () => {
         <Row>
           <h3>회원가입</h3>
         </Row>
-        <Row>
-          <InputBox type="text" id="username" placeholder="이메일" />
+        < Row >
+          <InputBox type="text" id="username" placeholder={emailSent ? "인증코드  00:41" : "이메일"} value={emailSent} onChange={handlerEmailSent} />
         </Row>
         <Row>
-          {emailSent ? <p>Email sent successfully!</p> : <button className='login-button-version2' onClick={sendEmail}>이메일 인증하기</button>}
+          {loading ? <ClipLoader color='f88c6b' loading={loading} size={20} /> :
+            emailSent && sendCheck ? <button className='login-button-version2'>확인</button>
+              : <button className='login-button-version2' onClick={() => sendEmail()}>이메일 인증하기</button>
+          }
+        </Row>
+        <Row>
+          <Link to="/join">{emailSent ? '인증코드 재전송' : ''}</Link>
         </Row>
       </Container>
     </>
