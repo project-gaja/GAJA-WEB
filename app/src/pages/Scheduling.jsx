@@ -8,6 +8,10 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from 'axios';
 import { API_LOCAL_URL } from './../common/constants';
+import ModalBasic from './location_modal';
+
+
+
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -15,10 +19,10 @@ const Scheduling = () => {
   const location = useLocation();
   const data = location.state?.data;
   const title = location.state?.title;
-
   const [editorDataList, setEditorDataList] = useState(Array.from({ length: data }, () => '<p>일정을 등록해보세요😁</p>'));
-
-
+  // 모달창 노출 여부 state
+  const [modalOpen, setModalOpen] = useState(false);
+    
   //----------템플릿 사진 추가 함수----------
   const handlecoverImageUpload = (event, index) => {
     const file = event.target.files[0];
@@ -67,16 +71,20 @@ const Scheduling = () => {
     const newData = editorDataList.map((editorData, i) => (i === index ? data : editorData));
     setEditorDataList(newData);
   };
-
+  // 모달창 노출
+  const showModal = () => {
+      setModalOpen(true);
+  };
   const slides = Array.from({ length: data }, (_, index) => (
     <SwiperSlide key={index}>
       <div className="contain">
+      {modalOpen && <ModalBasic setModalOpen={setModalOpen} />}
         <div className="test">
           <input type="file" name="image" id={`coverimageInput-${index}`} style={{ display: 'none' }} onChange={(event) => handlecoverImageUpload(event, index)} />
           <button className="coverbtn" onClick={() => document.getElementById(`coverimageInput-${index}`).click()}>
             템플릿 변경
           </button>
-        </div>
+        </div>        
         <div className="topcon">
           <div className="topdiv">
             <div className='top-left'>
@@ -91,7 +99,7 @@ const Scheduling = () => {
           </div>
           <div className="bottomdiv">
             <p className="title1">{index + 1}-Day 일정</p>
-            <button className="locbtn">위치추가</button>
+            <button className="locbtn" onClick={showModal}>위치추가</button>        
             <input type="file" name="image" id={`imageInput-${index}`} style={{ display: 'none' }} onChange={(event) => handleImageUpload(event, index)} />
             <button className="potobtn" onClick={() => document.getElementById(`imageInput-${index}`).click()}>
               사진추가
