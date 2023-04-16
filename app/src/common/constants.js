@@ -5,5 +5,10 @@
  * ----------------------------------------
  */
 
-export const API_LOCAL_URL = 'http://192.168.1.101:3001';
+
+/*
+   회사 : http://192.168.1.47
+   집  : http://192.168.1.101
+*/
+export const API_LOCAL_URL = 'http://192.168.0.110:3001';
 export const MAX_RESULTS = 10;

@@ -4,14 +4,14 @@ import { API_LOCAL_URL } from './../common/constants';
 /**
  * 공통함수 모음
  * @date               : 2023.03.23
- * @author           : hosung98
+ * @author             : hosung98
  * ----------------------------------------
  */
 export default {
   /**
    * 뷰 포트 설정 (inputbox 포커스 시 확대 금지)
    * @date               : 2023.04.25
-   * @description     : 뷰 포트 설정
+   * @description        : 뷰 포트 설정
    */
   viewportset: function () {
     const meta = document.createElement('meta');
@@ -22,12 +22,12 @@ export default {
 
   /**
    * axios 통신 메소드
-   * @param {string} url - 컨트롤러 url
-   * @param {string} method - GET,POST,DELETE,PUT
-   * @param {object} data - 서버쪽으로 보낼 데이터
-   * @return {Promise} - axios 요청 결과를 Promise로 반환
-   * @date               : 2023.04.25
-   * @description     : axios 통신 메소드
+   * @param {string} url    : 컨트롤러 url
+   * @param {string} method : GET,POST,DELETE,PUT
+   * @param {object} data   : 서버쪽으로 보낼 데이터
+   * @return {Promise}      : axios 요청 결과를 Promise로 반환
+   * @date                  : 2023.04.25
+   * @description           : axios 통신 메소드
    */
   axiosReq: async function (url, method, data) {
     const config = {

@@ -34,7 +34,6 @@ const ScheduleCreation = (props) => {
 
   //일정등록
   let fn_crSchedule =  async () =>{
-    debugger;
     let title = document.getElementById("name").value; //제목
     let destination = station;                         //여행지
     var btMs = state[0].endDate.getTime() - state[0].startDate.getTime() ;
@@ -57,7 +56,7 @@ const ScheduleCreation = (props) => {
 
 
     
-    navigate('/scheduling', { state: { data: btDay } });
+    navigate('/scheduling', { state: { data: btDay ,title: title} });
   };
 
   
@@ -69,23 +68,12 @@ const ScheduleCreation = (props) => {
       <div className='box'>
         <h4 className='title99'>😁여행에 제목은 무엇인가요?</h4>
         {/* <input className='inputbox' type="text" id="name" name="name" required minlength="4" maxlength="8" ></input> */}
-        <TextField id="name" label="" variant="standard" />
+        <TextField className='inputbox' id="name" label="" variant="standard" />
       </div>
          
       <div className='box'>
         <h4 className='title99'>어디로🏖️ 여행을 떠나나요?</h4>
-                
-        {/* <Select
-          labelId="demo-simple-select-autowidth-label"
-          className='combox'
-          value={station}
-          onChange={handleChange}
-          autoWidth
-        >
-          <MenuItem value=""><em>None</em></MenuItem>
-          <MenuItem value={"서울"}>서울</MenuItem>
-          <MenuItem value={"부산"}>부산</MenuItem>
-        </Select> */}
+
         <Select
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"

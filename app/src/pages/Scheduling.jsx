@@ -14,8 +14,36 @@ SwiperCore.use([Navigation, Pagination]);
 const Scheduling = () => {
   const location = useLocation();
   const data = location.state?.data;
+  const title = location.state?.title;
+
   const [editorDataList, setEditorDataList] = useState(Array.from({ length: data }, () => '<p>일정을 등록해보세요😁</p>'));
 
+
+  //----------템플릿 사진 추가 함수----------
+  const handlecoverImageUpload = (event, index) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+
+    // 이미지 업로드 API 호출
+    axios
+      .post(API_LOCAL_URL + '/fileupload', formData)
+      .then((response) => {
+        const imageUrl = response.data.imageUrl;
+        const testDivs = document.querySelectorAll('.test');
+    
+        testDivs.forEach(testDiv => {
+            testDiv.style.backgroundImage = "url('" + API_LOCAL_URL + "/" + imageUrl + "')";
+            testDiv.style.backgroundSize = "cover";
+            testDiv.style.backgroundPosition = "center";
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  //----------텍스트 에디터 사진 추가 함수----------
   const handleImageUpload = (event, index) => {
     const file = event.target.files[0];
     const formData = new FormData();
@@ -44,18 +72,21 @@ const Scheduling = () => {
     <SwiperSlide key={index}>
       <div className="contain">
         <div className="test">
-          <button className="coverbtn">템플릿 변경</button>
+          <input type="file" name="image" id={`coverimageInput-${index}`} style={{ display: 'none' }} onChange={(event) => handlecoverImageUpload(event, index)} />
+          <button className="coverbtn" onClick={() => document.getElementById(`coverimageInput-${index}`).click()}>
+            템플릿 변경
+          </button>
         </div>
         <div className="topcon">
           <div className="topdiv">
             <div className='top-left'>
-            <p className="title">우리 함께 떠나는 여행</p>
+              <p className="title">{title}</p>
             </div>
             <div className='top-right'>
-            <label className='checkbox_con'>
-              <input type="checkbox" name="travel" />
-              공개
-            </label>  
+              <label className='checkbox_con'>
+                <input type="checkbox" name="travel" />
+                공개
+              </label>
             </div>
           </div>
           <div className="bottomdiv">
