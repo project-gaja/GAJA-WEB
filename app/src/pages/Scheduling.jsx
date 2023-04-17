@@ -20,6 +20,10 @@ const Scheduling = () => {
   const data = location.state?.data;
   const title = location.state?.title;
   const [editorDataList, setEditorDataList] = useState(Array.from({ length: data }, () => '<p>일정을 등록해보세요😁</p>'));
+  
+  
+  // 팝업창 내용을 저장하는 state
+  const [modalContent, setModalContent] = useState(null);  
   // 모달창 노출 여부 state
   const [modalOpen, setModalOpen] = useState(false);
     
@@ -71,14 +75,33 @@ const Scheduling = () => {
     const newData = editorDataList.map((editorData, i) => (i === index ? data : editorData));
     setEditorDataList(newData);
   };
+
+  
   // 모달창 노출
-  const showModal = () => {
-      setModalOpen(true);
+  const showModal = (index) => {
+    // 각 페이지에 대한 팝업창 내용을 설정합니다.
+    setModalContent(index);
+    setModalOpen(true);
   };
+
+  const handleLocationAdd = (location) => {
+    console.log(location);
+  };  
+  
   const slides = Array.from({ length: data }, (_, index) => (
+    
     <SwiperSlide key={index}>
+      
       <div className="contain">
-      {modalOpen && <ModalBasic setModalOpen={setModalOpen} />}
+      <div className={'test-' + index}>
+      {modalOpen && (
+          <ModalBasic
+            setModalOpen={setModalOpen}
+            id={modalContent} // 각 페이지에 대한 팝업창 내용을 전달합니다.
+            handleLocationAdd={handleLocationAdd} 
+          />
+        )}   
+      </div>
         <div className="test">
           <input type="file" name="image" id={`coverimageInput-${index}`} style={{ display: 'none' }} onChange={(event) => handlecoverImageUpload(event, index)} />
           <button className="coverbtn" onClick={() => document.getElementById(`coverimageInput-${index}`).click()}>
@@ -99,7 +122,7 @@ const Scheduling = () => {
           </div>
           <div className="bottomdiv">
             <p className="title1">{index + 1}-Day 일정</p>
-            <button className="locbtn" onClick={showModal}>위치추가</button>        
+            <button className="locbtn"  onClick={(event) => showModal(index)}>위치추가</button>        
             <input type="file" name="image" id={`imageInput-${index}`} style={{ display: 'none' }} onChange={(event) => handleImageUpload(event, index)} />
             <button className="potobtn" onClick={() => document.getElementById(`imageInput-${index}`).click()}>
               사진추가
