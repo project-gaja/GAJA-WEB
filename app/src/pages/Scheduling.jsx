@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect, useRef} from 'react';
 import { useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
@@ -6,11 +6,12 @@ import 'swiper/swiper-bundle.css';
 import './../styles/Scheduling.css';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { withReact } from '@ckeditor/ckeditor5-react';
 import axios from 'axios';
 import { API_LOCAL_URL } from './../common/constants';
 import ModalBasic from './location_modal';
-
-
+import NaverMap from './../component/NaverMap';
+import ReactDOMServer from 'react-dom/server';
 
 
 SwiperCore.use([Navigation, Pagination]);
@@ -21,7 +22,28 @@ const Scheduling = () => {
   const title = location.state?.title;
   const [editorDataList, setEditorDataList] = useState(Array.from({ length: data }, () => '<p>일정을 등록해보세요😁</p>'));
   
+
+  const editor = useRef(null);
+
+  const editorRef = useRef(null);
   
+  useEffect(() => {
+    const { naver } = window;
+    if (!editorRef.current || !naver) return;
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gksj1vaeq9`;
+    script.async = true;
+    script.onload = () => {
+      const mapOptions = {
+        center: new naver.maps.LatLng(37.3595704, 127.105399),
+        zoom: 15,
+      };
+      const map = new naver.maps.Map('map', mapOptions);
+    };
+    document.body.appendChild(script);
+  }, []);
+
   // 팝업창 내용을 저장하는 state
   const [modalContent, setModalContent] = useState(null);  
   // 모달창 노출 여부 state
@@ -83,9 +105,24 @@ const Scheduling = () => {
     setModalContent(index);
     setModalOpen(true);
   };
-
-  const handleLocationAdd = (location) => {
-    console.log(location);
+  const NaverMap = () => {
+    // your NaverMap component code here
+  };
+  // const NaverMapComponent = withReact(NaverMap);
+  const handleLocationAdd = (page,lat,lng) => {
+    console.log("page : " + page);
+    console.log("lat : " + lat);
+    console.log("lng : " + lng);
+    
+    debugger
+    const myComponent = "<NaverMap lat={'"+lat+"'} lng={'" + lng + "'}/>"; 
+    //const mapHtml = '<div id="map" style="width: 500px; height: 400px;"></div>';
+    
+    const myComponentHtml = ReactDOMServer.renderToString(myComponent);
+    const newData = editorDataList.map((editorData, i) => (i === page ? editorData + myComponentHtml : editorData));
+    setEditorDataList(newData);
+  
+    
   };  
   
   const slides = Array.from({ length: data }, (_, index) => (
@@ -127,13 +164,15 @@ const Scheduling = () => {
             <button className="potobtn" onClick={() => document.getElementById(`imageInput-${index}`).click()}>
               사진추가
             </button>
+            
           </div>
         </div>
         <CKEditor
+          ref={editor}
           className="textedit"
           id={`editor-${index}`}
           editor={ClassicEditor}
-          data={editorDataList[index]}
+          data={editorDataList[index]} 
           onReady={(editor) => {
             console.log('Editor is ready to use!', editor);
           }}
@@ -151,6 +190,7 @@ const Scheduling = () => {
         <div className="footer">
           <button className="addbtn">일정등록</button>
         </div>
+        
       </div>
     </SwiperSlide>
   ));
