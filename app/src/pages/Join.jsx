@@ -7,7 +7,7 @@ import axios from 'axios';
 import ClipLoader from "react-spinners/ClipLoader";
 import com from '../common/common';
 
-let random = '';
+let g_random = '';
 
 const Join = () => {
   const InputBox = styled.input`
@@ -24,22 +24,33 @@ const Join = () => {
 
   const [loading, setLoading] = useState(false);
   const [sendCheck, setSendCheck] = useState(false);
+
   const [email, setEmail] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
   const [isEmail, setIsEmail] = useState(false);
 
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [isPassword, setIsPassword] = useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState('')
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('')
+
+  const [userName, setUserName] = useState('');
+  const [nameMessage, setNameMessage] = useState('');
+  const [isName, setIsName] = useState(false);
 
   // 이메일 인증코드 발송
   const sendEmail = async () => {
     if (!isEmail) return;
 
-    random = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
+    g_random = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
     setLoading(true);
 
     const url = 'http://localhost:3001/send-email';
     const data = {
       email: { email },
-      code: random
+      code: g_random
     }
     let result = await com.axiosReq(url, 'POST', data);
     console.log("result", JSON.stringify(result));
@@ -50,15 +61,37 @@ const Join = () => {
     setEmail('');
   };
 
+  // 회원가입
+  const register = async () => {
+    setLoading(true);
+
+    const url = 'http://localhost:3001/register';
+    const data = {
+      email: document.getElementById('email').value,
+      psword: document.getElementById('psword').value,
+      userName: document.getElementById('userName').value,
+    }
+    let result = await com.axiosReq(url, 'POST', data);
+    console.log("result", JSON.stringify(result));
+
+    setLoading(false);
+  };
+
   // 인증코드 유효성체크
   const checkCode = async (e) => {
     const inputCode = document.getElementById('email').value;
-    if (inputCode === random) {
-      styleChange();
+    if (inputCode === g_random) {
       setEmailMessage('인증성공!');
+      styleChange('code');
       return;
     }
     setEmailMessage('인증번호가 틀렸어요! 다시 확인해주세요 ㅜ ㅜ');
+  };
+
+  // 비밀번호 유효성체크
+  const checkPassword = async (e) => {
+    // TO-DO 확인 버튼 클릭시 확인
+    styleChange('password');
   };
 
   // 이메일 유효성체크
@@ -76,11 +109,59 @@ const Join = () => {
     }
   }, [])
 
-  const styleChange = () => {
+  // 비밀번호 유효성체크
+  const passwordCheck = useCallback((e) => {
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
+    const passwordCurrent = e.target.value
+    setPassword(passwordCurrent)
+
+    if (!passwordRegex.test(passwordCurrent)) {
+      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!')
+      setIsPassword(false)
+    } else {
+      setPasswordMessage('안전한 비밀번호에요 : )')
+      setIsPassword(true)
+    }
+  }, [])
+
+  // 비밀번호 확인 유효성체크
+  const passwordConfirmCheck = useCallback((e) => {
+    const passwordConfirmCurrent = e.target.value;
+    setPasswordConfirm(passwordConfirmCurrent);
+
+    if (password === passwordConfirmCurrent) {
+      setPasswordConfirmMessage('비밀번호를 똑같이 입력했어요 : )')
+      setIsPasswordConfirm(true)
+    } else {
+      setPasswordConfirmMessage('비밀번호가 틀려요. 다시 확인해주세요 ㅜ ㅜ')
+      setIsPasswordConfirm(false)
+    }
+  }, [password])
+
+  // 유저명 유효성체크
+  const userNameCheck = async (e) => {
+    setUserName(e.target.value)
+    if (e.target.value.length < 2 || e.target.value.length > 5) {
+      setNameMessage('2글자 이상 5글자 미만으로 입력해주세요.')
+      setIsName(false)
+    } else {
+      setNameMessage('올바른 이름 형식입니다 :)')
+      setIsName(true)
+    }
+  };
+
+  // container show hide function
+  const styleChange = (param) => {
     const container1 = document.querySelector(".container-1");
     const container2 = document.querySelector(".container-2");
-    container1.style.display = 'none';
-    container2.style.display = 'block';
+    const container3 = document.querySelector(".container-3");
+    if (param === 'code') {
+      container1.style.display = 'none';
+      container2.style.display = 'block';
+      return;
+    }
+    container2.style.display = 'none';
+    container3.style.display = 'block';
   };
 
   return (
@@ -108,13 +189,27 @@ const Join = () => {
           <h3>회원가입</h3>
         </Row>
         < Row >
-          <InputBox type="password" placeholder='비밀번호' />
+          <InputBox type="password" id='psword' placeholder='비밀번호' onBlur={(e) => passwordCheck(e)} defaultValue={password} />
+          {password.length > 0 && <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</span>}
         </Row>
         < Row >
-          <InputBox type="password" placeholder='비밀번호 확인' />
+          <InputBox type="password" placeholder='비밀번호 확인' onBlur={(e) => passwordConfirmCheck(e)} defaultValue={passwordConfirm} />
+          {passwordConfirm.length > 0 && <span className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordConfirmMessage}</span>}
         </Row>
         <Row>
-          <button className='login-button-version2' onClick={(e) => checkCode(e)}>확인</button>
+          <button className='login-button-version2' onClick={(e) => checkPassword(e)}>확인</button>
+        </Row>
+      </Container>
+      <Container className='container-3' style={{ display: 'none' }}>
+        <Row>
+          <h3>회원가입</h3>
+        </Row>
+        < Row >
+          <InputBox type="text" id='userName' placeholder='이름' onBlur={(e) => userNameCheck(e)} defaultValue={userName} />
+          {userName.length > 0 && <span className={`message ${isName ? 'success' : 'error'}`}>{nameMessage}</span>}
+        </Row>
+        <Row>
+          <button className='login-button-version2' onClick={(e) => register(e)}>가입하기</button>
         </Row>
       </Container>
     </>
