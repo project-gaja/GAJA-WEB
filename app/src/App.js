@@ -7,6 +7,7 @@ import PswordUpdate from './pages/PswordUpdate';
 import Mypage from './pages/MyPage';
 import ScheduleCreation from './pages/ScheduleCreation'; //일정등록 페이지 [순서1]
 import Scheduling from './pages/Scheduling';             //일정작성 페이지 [순서2]
+import Search from "./pages/Search";                     //검색 페이지
 
 
 
@@ -24,6 +25,7 @@ export default function App() {
         <Route path='/mypage' element={<Mypage />} />
         <Route path='/scheduleCreation' element={<ScheduleCreation />} />
         <Route path='/scheduling' element={<Scheduling />} />
+        <Route path='/search' element={<Search />} />
       </Routes>
     </>
   );
