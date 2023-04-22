@@ -8,6 +8,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import com from '../common/common';
 
 let g_random = '';
+let g_email = '';
 
 const Join = () => {
   const InputBox = styled.input`
@@ -67,9 +68,9 @@ const Join = () => {
 
     const url = 'http://localhost:3001/register';
     const data = {
-      email: document.getElementById('email').value,
       psword: document.getElementById('psword').value,
       userName: document.getElementById('userName').value,
+      email: g_email
     }
     let result = await com.axiosReq(url, 'POST', data);
     console.log("result", JSON.stringify(result));
@@ -106,6 +107,7 @@ const Join = () => {
     } else {
       setEmailMessage('올바른 이메일 형식이에요 : )')
       setIsEmail(true);
+      g_email = document.getElementById('email').value;
     }
   }, [])
 
