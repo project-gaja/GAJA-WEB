@@ -76,6 +76,7 @@ const Join = () => {
     console.log("result", JSON.stringify(result));
 
     setLoading(false);
+    alert('TODO-메인화면 개발 후 이동');
   };
 
   // 인증코드 유효성체크
