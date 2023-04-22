@@ -1,8 +1,16 @@
 /* 모달창을 화면 중앙. 최상단에 노출 */
+.background{
+  /* width: 1000px;
+  height: 900px;
+  margin: 0px 0px;
+  border-radius: 50px 50px 50px 50px ;
+  background-color: rebeccapurple; */
+}
 .containermodal {
+    
     /* 모달창 크기 */
     width: 90%;
-    height: 80%;
+    height: 85%;
     /* 최상단 위치 */
     z-index: 9999;
     

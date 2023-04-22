@@ -10,7 +10,8 @@ import { withReact } from '@ckeditor/ckeditor5-react';
 import axios from 'axios';
 import { API_LOCAL_URL } from './../common/constants';
 import ModalBasic from './location_modal';
-import NaverMap from './../component/NaverMap';
+import NaverMap from './../component/NaverMap'
+// import MapImage from './../component/layout/MapImage';
 import ReactDOMServer from 'react-dom/server';
 
 
@@ -28,20 +29,27 @@ const Scheduling = () => {
   const editorRef = useRef(null);
   
   useEffect(() => {
-    const { naver } = window;
-    if (!editorRef.current || !naver) return;
     const script = document.createElement('script');
     script.type = 'text/javascript';
-    script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=gksj1vaeq9`;
+    script.src = `//openapi.map.naver.com/openapi/v3/maps.js?clientId=YOUR_CLIENT_ID&submodules=geocoder`;
     script.async = true;
+    document.head.appendChild(script);
+
     script.onload = () => {
-      const mapOptions = {
-        center: new naver.maps.LatLng(37.3595704, 127.105399),
-        zoom: 15,
-      };
-      const map = new naver.maps.Map('map', mapOptions);
+      const map = new window.naver.maps.Map('map', {
+        center: new window.naver.maps.LatLng(37.567545, 126.977335), // 지도의 중심 좌표
+        zoom: 15 // 지도의 확대 레벨
+      });
+
+      const marker = new window.naver.maps.Marker({
+        position: new window.naver.maps.LatLng(37.567545, 126.977335), // 마커가 위치할 좌표
+        map // 마커를 표시할 지도 객체
+      });
     };
-    document.body.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
   }, []);
 
   // 팝업창 내용을 저장하는 state
@@ -105,23 +113,52 @@ const Scheduling = () => {
     setModalContent(index);
     setModalOpen(true);
   };
-  const NaverMap = () => {
-    // your NaverMap component code here
-  };
-  // const NaverMapComponent = withReact(NaverMap);
+
+  
+
+
+
+
   const handleLocationAdd = (page,lat,lng) => {
     console.log("page : " + page);
     console.log("lat : " + lat);
     console.log("lng : " + lng);
+
+    debugger;
     
-    debugger
-    const myComponent = "<NaverMap lat={'"+lat+"'} lng={'" + lng + "'}/>"; 
-    //const mapHtml = '<div id="map" style="width: 500px; height: 400px;"></div>';
     
-    const myComponentHtml = ReactDOMServer.renderToString(myComponent);
-    const newData = editorDataList.map((editorData, i) => (i === page ? editorData + myComponentHtml : editorData));
-    setEditorDataList(newData);
+    debugger;
+    const API_KEY = 'zhm82fadkm'; // 발급받은 API 키를 넣어줍니다.
+    const baseUrl = "https://naveropenapi.apigw.ntruss.com/map-static/v2/raster?";
+    const center = "center="+lng+","+lat+"&";
+    const level = "level=14&";
+    const size = "size=200x200";
+    const url = baseUrl + center + level + size;
   
+
+
+
+    // axios.get(url, {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'X-NCP-APIGW-API-KEY-ID': "zhm82fadkm",
+    //     'X-NCP-APIGW-API-KEY': "yO1LhJxcOlfGsF1uOj7gbkUunIHijUzf9FXpZTle",
+    //   },
+    // })
+    // .then((response) => {
+    //   console.log(response);
+    // })
+    // .catch((error) => {
+    //   console.error(error);
+    // });    
+    
+
+    // const myComponent = "<NaverMap lat={'"+lat+"'} lng={'" + lng + "'}/>"; 
+    const mapHtml = "<img src='https://naveropenapi.apigw.ntruss.com/map-static/v2/raster-cors?w=300&h=300&center="+lng+","+lat+"&level=16&X-NCP-APIGW-API-KEY-ID=zhm82fadkm'>";
+    // const mapHtml = "<MapImage lat='37.5666102' lng='126.9783881' />";
+    // const myComponentHtml = ReactDOMServer.renderToString(mapHtml);
+
+    handleEditorDataChange(page,mapHtml);
     
   };  
   
@@ -145,6 +182,8 @@ const Scheduling = () => {
             템플릿 변경
           </button>
         </div>        
+        
+
         <div className="topcon">
           <div className="topdiv">
             <div className='top-left'>
@@ -167,6 +206,8 @@ const Scheduling = () => {
             
           </div>
         </div>
+        <p><span><div id='map' style={{ width: '0', height: '0' }}></div></span></p>
+        
         <CKEditor
           ref={editor}
           className="textedit"

@@ -54,7 +54,9 @@ function ModalBasic({ setModalOpen, id, title, content, writer ,handleLocationAd
     }
     
     return (
+        <div className='background'>
         <div className="containermodal">
+            
             <button className="close" onClick={closeModal}>
                 X
             </button>
@@ -68,6 +70,7 @@ function ModalBasic({ setModalOpen, id, title, content, writer ,handleLocationAd
             <div className='modal_bottom'>
                 <button className='locationbtn' onClick={fn_locationbtn} >위치추가</button>
             </div>
+        </div>
         </div>
     );
 }
