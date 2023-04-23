@@ -12,17 +12,10 @@ const HomeContainer = () => {
     navigate('/login');
   }
   const goNaverLogin = async () => {
-    const url = 'http://localhost:3001/naverlogin';
-    let result = await com.axiosReq(url, 'GET', '');
-    console.log("result", JSON.stringify(result));
-    if (result != null) {
-      goNaverLoginCallback();
-    }
+    document.location.href = 'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=' + 'wR83WrPaWLvs2CKHC3Un' + '&redirect_uri=' + encodeURI('http://localhost:3001/naverlogin') + '&state=' + Math.random().toString(36).substr(3, 14);
   }
-  const goNaverLoginCallback = async () => {
-    const url = 'http://localhost:3001/callback';
-    let result = await com.axiosReq(url, 'GET', '');
-    console.log("result", JSON.stringify(result));
+  const goKakaoLogin = async () => {
+    document.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=fd105bdb5cdd612c620fde133e80b5d3&redirect_uri=${encodeURI('http://localhost:3001/kakaologin')}&response_type=code`
   }
 
   return (
@@ -41,7 +34,7 @@ const HomeContainer = () => {
           <button className='naver-login-button' onClick={goNaverLogin}>NAVER</button>
         </Row>
         <Row>
-          <button className='kakao-login-button'>카카오톡</button>
+          <button className='kakao-login-button' onClick={goKakaoLogin}>카카오톡</button>
         </Row>
         <Row>
           <button className='apple-login-button'>Apple</button>
