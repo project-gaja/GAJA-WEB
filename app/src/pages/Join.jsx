@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import styled from "styled-components";
 import '../styles/button.css';
-import axios from 'axios';
 import ClipLoader from "react-spinners/ClipLoader";
 import com from '../common/common';
 
