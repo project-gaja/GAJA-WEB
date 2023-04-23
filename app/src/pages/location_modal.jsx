@@ -8,6 +8,9 @@ function ModalBasic({ setModalOpen, id, title, content, writer ,handleLocationAd
     const [latvalue, setlat] = React.useState(''); //위도
     const [lngvalue, setlng] = React.useState(''); //경도
 
+
+
+    const [searchval,setserchval] = useState(null);
   
     useEffect(() => {
       const { naver } = window;
@@ -15,7 +18,8 @@ function ModalBasic({ setModalOpen, id, title, content, writer ,handleLocationAd
   
       //로케이션표시 Google maps에서 원하는 장소 찾은 후 주변검색을 누르면 좌표를 찾을 수 있다.
       const location = new naver.maps.LatLng(37.5663, 126.9779);
-  
+      
+      const geocoder = new naver.maps.services.Geocoder();
       //네이버 지도 옵션 선택
       const mapOptions = {
         center: location,
@@ -52,7 +56,12 @@ function ModalBasic({ setModalOpen, id, title, content, writer ,handleLocationAd
         handleLocationAdd(id,latvalue,lngvalue)
         closeModal();
     }
-    
+
+    //검색 버튼
+    function fn_searchbtn() {
+      const val = document.querySelector('.searchbox').value;
+      alert(val);
+    }
     return (
         <div className='background'>
         <div className="containermodal">
@@ -61,8 +70,8 @@ function ModalBasic({ setModalOpen, id, title, content, writer ,handleLocationAd
                 X
             </button>
             <div className='modal_top'>
-                <input type='TextField' className='searchbox'></input>
-                <button className='searchbtn' onClick={fn_locationbtn} >검색</button>
+                <input type='TextField' className='searchbox' ></input>
+                <button className='searchbtn' onClick={fn_searchbtn} >검색</button>
             </div>
             <div className='modal_center'>
             <div ref={mapElement} style={{ minHeight: '100%' }} />
