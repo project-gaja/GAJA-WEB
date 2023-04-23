@@ -7,31 +7,49 @@ import '../styles/button.css';
 import styled from "styled-components";
 import { useDispatch } from 'react-redux';
 
-const Login = () => {
-  const [id, setId] = React.useState("");
-  const [pwd, setPwd] = React.useState("");
+const Login = ({ setAuthenticate }) => {
+  const [email, setEmail] = useState('');
+  const [psword, setPsword] = useState('');
   const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
   const passwordRegEx = /^[A-Za-z0-9]{8,20}$/
-  //const dispatch = useDispatch(); // dispatch로 재선언하여 사용한다.
+  const [emailMessage, setEmailMessage] = useState('');
+  const [isEmail, setIsEmail] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState('')
+  const [isPassword, setIsPassword] = useState(false);
 
-  const login = () => {
-    //입력 값 정합성 체크 후 login API 요청
-    if (id === "" || pwd === "") {
-      window.alert("아이디와 비밀번호를 입력해주세요.");
+  function handleUsernameChange(event) {
+    setEmail(event.target.value);
+  }
+
+  function handlePasswordChange(event) {
+    setPsword(event.target.value);
+  }
+
+  const handleLoginClick = () => {
+    if (email.trim() === '') {
+      setEmailMessage('이메일을 입력해주세요 ㅜ ㅜ')
+      setIsEmail(false);
       return;
     }
-    if (!emailCheck(id)) {
-      window.alert("이메일 형식이 맞지 않습니다.");
+    if (!emailCheck(email)) {
+      setEmailMessage('이메일 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ')
+      setIsEmail(false);
       return;
     }
-    if (!passwordCheck(pwd)) {
-      window.alert("비밀번호 형식을 확인해주세요.");
+    if (psword.trim() === '') {
+      setPasswordMessage('비밀번호를 입력해주세요 ㅜ ㅜ')
+      setIsPassword(false);
+      return;
     }
-    //dispatch(users.loginDB(id, pwd));
+
+    setAuthenticate(true);
+    alert('TODO 로그인 성공');
+
   };
 
-  const emailCheck = (username) => {
-    return emailRegEx.test(username); //형식에 맞을 경우, true 리턴
+  const emailCheck = (email) => {
+
+    return emailRegEx.test(email); //형식에 맞을 경우, true 리턴
   }
 
   const passwordCheck = (password) => {
@@ -50,8 +68,6 @@ const Login = () => {
     font-size: 16px;
   `;
 
-  const navigate = useNavigate();
-
   return (
     <>
       <Container>
@@ -65,17 +81,15 @@ const Login = () => {
           </Card>
         </Row>
         <Row>
-          <InputBox type="text" id="username" _onChange={(e) => {
-            setId(e.target.value);
-          }} placeholder="이메일" />
+          <InputBox type="text" defaultValue={email} onBlur={handleUsernameChange} placeholder="이메일" />
+          {<span className={`message ${isEmail ? 'success' : 'error'}`}>{emailMessage}</span>}
         </Row>
         <Row>
-          <InputBox type="password" id="password" _onChange={(e) => {
-            setPwd(e.target.value);
-          }} placeholder="비밀번호" />
+          <InputBox type="password" defaultValue={psword} onBlur={handlePasswordChange} placeholder="비밀번호" />
+          {<span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</span>}
         </Row>
         <Row>
-          <button className='login-button-version2'>로그인</button>
+          <button className='login-button-version2' onClick={handleLoginClick}>로그인</button>
         </Row>
         <Row>
           <Link to="/join">가입하기</Link>
