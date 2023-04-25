@@ -44,10 +44,17 @@ const Join = () => {
   const sendEmail = async () => {
     if (!isEmail) return;
 
+    let uniqueResult = await emailUniqueCheck();
+    if (uniqueResult.success) {
+
+      console.log(uniqueResult.content[0].cㅜ);
+    }
+
+    return;
     g_random = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
     setLoading(true);
 
-    const url = 'http://localhost:3001/send-email';
+    const url = 'http://localhost:3001/sendEmail';
     const data = {
       email: { email },
       code: g_random
@@ -104,12 +111,23 @@ const Join = () => {
     if (!emailRegex.test(emailCurrent)) {
       setEmailMessage('이메일 형식이 틀렸어요! 다시 확인해주세요 ㅜ ㅜ')
       setIsEmail(false);
-    } else {
-      setEmailMessage('올바른 이메일 형식이에요 : )')
-      setIsEmail(true);
-      g_email = document.getElementById('email').value;
+      return;
     }
+    setEmailMessage('올바른 이메일 형식이에요 : )')
+    setIsEmail(true);
+    g_email = document.getElementById('email').value;
   }, [])
+
+  // 이메일 중복체크
+  const emailUniqueCheck = async () => {
+    const url = 'http://localhost:3001/emailUniqueCheck';
+    const data = {
+      email: { email }
+    }
+    let result = await com.axiosReq(url, 'POST', data);
+    console.log("result", JSON.stringify(result));
+    return result;
+  }
 
   // 비밀번호 유효성체크
   const passwordCheck = useCallback((e) => {

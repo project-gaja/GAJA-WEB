@@ -5,7 +5,8 @@ import Card from 'react-bootstrap/Card';
 import Logo from '../asserts/images/logo.png';
 import '../styles/button.css';
 import styled from "styled-components";
-import { useDispatch } from 'react-redux';
+import com from '../common/common';
+import { API_LOCAL_URL } from './../common/constants';
 
 const Login = ({ setAuthenticate }) => {
   const [email, setEmail] = useState('');
@@ -25,7 +26,7 @@ const Login = ({ setAuthenticate }) => {
     setPsword(event.target.value);
   }
 
-  const handleLoginClick = () => {
+  const handleLoginClick = async () => {
     if (email.trim() === '') {
       setEmailMessage('이메일을 입력해주세요 ㅜ ㅜ')
       setIsEmail(false);
@@ -41,6 +42,14 @@ const Login = ({ setAuthenticate }) => {
       setIsPassword(false);
       return;
     }
+
+    let formdata = {
+      'email': email,
+      'psword': psword,
+    };
+
+    let result = await com.axiosReq('http://localhost:3001' + '/login', 'POST', formdata);
+    console.log(JSON.stringify(result));
 
     setAuthenticate(true);
     alert('TODO 로그인 성공');
