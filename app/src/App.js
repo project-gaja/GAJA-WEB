@@ -11,6 +11,7 @@ import { AuthContext } from "./context/auth-context";
 import { useAuth } from "./hooks/auth-hook";
 import PrivateRoute from "./pages/PrivateRoute";
 import PublicRoute from "./pages/PublicRoute";
+import Search from "./pages/Search";
 
 /*
   1. 누구나 접근 가능
@@ -41,6 +42,7 @@ export default function App() {
         <Route path='/mypage' element={<Mypage />} />
         <Route path='/scheduleCreation' element={<ScheduleCreation />} />
         <Route path='/scheduling' element={<Scheduling />} />
+        <Route path='/search' element={<Search />} />
 
       </Routes>
     </>
