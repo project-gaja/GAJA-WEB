@@ -11,5 +11,5 @@
    집  : http://192.168.1.101:3001
    기타 : http://192.168.0.42:3000
 */
-export const API_LOCAL_URL = 'http://192.168.0.42:3001';
+export const API_LOCAL_URL = 'http://192.168.1.101:3001';
 export const MAX_RESULTS = 10;

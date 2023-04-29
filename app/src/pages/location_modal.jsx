@@ -1,25 +1,26 @@
 import styles from './../styles/location_modal.css';
 import TextField from '@mui/material/TextField';
 import React,{ useState, useEffect, useRef } from 'react';
-
+import { NaverMap, RenderAfterNavermapsLoaded } from 'react-naver-maps';
+import axios from 'axios';
 
 function ModalBasic({ setModalOpen, id, title, content, writer ,handleLocationAdd}) {
     const mapElement = useRef(null);
-    const [latvalue, setlat] = React.useState(''); //위도
-    const [lngvalue, setlng] = React.useState(''); //경도
-
+    const [latvalue, setlat] = React.useState('37.5663'); //위도
+    const [lngvalue, setlng] = React.useState('126.9779'); //경도
+    const [location, setlocation] = React.useState(''); //위치
 
 
     const [searchval,setserchval] = useState(null);
-  
+    
     useEffect(() => {
       const { naver } = window;
       if (!mapElement.current || !naver) return;
   
       //로케이션표시 Google maps에서 원하는 장소 찾은 후 주변검색을 누르면 좌표를 찾을 수 있다.
-      const location = new naver.maps.LatLng(37.5663, 126.9779);
+      const location = new naver.maps.LatLng(latvalue, lngvalue);
       
-      // const geocoder = new naver.maps.services.Geocoder();
+      
       //네이버 지도 옵션 선택
       const mapOptions = {
         center: location,
@@ -37,12 +38,12 @@ function ModalBasic({ setModalOpen, id, title, content, writer ,handleLocationAd
         map: map,
       });
       naver.maps.Event.addListener(map, 'click', function(e) {
-
         setlat(e.coord._lat);
         setlng(e.coord._lng);
         marker.setPosition(e.coord);
       });    
-    }, []);
+      
+    }, [latvalue, lngvalue]);
   
 
     
@@ -59,9 +60,32 @@ function ModalBasic({ setModalOpen, id, title, content, writer ,handleLocationAd
 
     //검색 버튼
     function fn_searchbtn() {
-      const val = document.querySelector('.searchbox').value;
-      alert(val);
+      const query = document.querySelector('.searchbox').value;
+      searchLocation(query);
     }
+
+    //검색 버튼
+    async function searchLocation(query) {
+      debugger;
+      const url = "/map-geocode/v2/geocode?query=" + query;
+      
+      axios.get(url, {
+        headers: {
+          'X-NCP-APIGW-API-KEY-ID': 'zhm82fadkm',
+          'X-NCP-APIGW-API-KEY': 'XAIQ4hTQEAV5rfj66fhmv3XXrsXcdGTfsAR7xyIP'
+        }
+      })
+      .then(response => {
+        debugger;
+        setlat(response.data.addresses[0].y);
+        setlng(response.data.addresses[0].x);
+      })
+      .catch(error => {
+       // console.error(error);
+      });      
+    }    
+
+
     return (
         <div className='background'>
         <div className="containermodal">
