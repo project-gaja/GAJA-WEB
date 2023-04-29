@@ -1,15 +1,15 @@
 import React, { useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
+import { Route, Routes } from 'react-router';
 import Card from 'react-bootstrap/Card';
 import Logo from '../asserts/images/logo.png';
 import '../styles/button.css';
-import { GoogleLogin } from "@react-oauth/google";
+import RenewalSelectSocialLoginPage from './RenewalSelectSocialLoginPage';
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import axios from 'axios';
 
 const HomeContainer = () => {
-  const googleClientId = '280223529402-gc6e5olm09vc1qs1jcnhs08qa7gkg5jr.apps.googleusercontent.com'
+  const clientId = '280223529402-gc6e5olm09vc1qs1jcnhs08qa7gkg5jr.apps.googleusercontent.com'
   const navigate = useNavigate();
   const goLoginPage = () => {
     navigate('/login');
@@ -48,14 +48,13 @@ const HomeContainer = () => {
         <Row>
           <button className='kakao-login-button' onClick={goKakaoLogin}>카카오톡</button>
         </Row>
-        <GoogleOAuthProvider>
-          <GoogleLogin
-            clientId={googleClientId}
-            buttonText="Login"
-            onSuccess={googleLogin}
-            onFailure={(res) => console.log(res)}
-            cookiePolicy={'single_host_origin'} />
-        </GoogleOAuthProvider>
+        <Row>
+          <GoogleOAuthProvider clientId={clientId}>
+            <Routes>
+              <Route exact path='/' component={RenewalSelectSocialLoginPage} />
+            </Routes>
+          </GoogleOAuthProvider>
+        </Row>
         <Row>
           <button className='login-button' onClick={goLoginPage}>로그인</button>
         </Row>
@@ -63,7 +62,7 @@ const HomeContainer = () => {
           <Link to="/join">가입하기</Link>
         </Row>
       </Container>
-    </div>
+    </div >
   )
 }
 

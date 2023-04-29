@@ -38,7 +38,7 @@
   background-color: #28d100;
 }
 
-.apple-login-button {
+.google-login-button {
   background-color: #000000;
   border: none;
   color: #ffffff;
@@ -49,7 +49,7 @@
   width: 100%;
 }
 
-.apple-login-button:hover {
+.google-login-button:hover {
   background-color: #1a1a1a;
 }
 
