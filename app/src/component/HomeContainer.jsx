@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import Logo from '../asserts/images/logo.png';
 import '../styles/button.css';
-import com from '../common/common';
+import { GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import axios from 'axios';
 
 const HomeContainer = () => {
+  const googleClientId = '280223529402-gc6e5olm09vc1qs1jcnhs08qa7gkg5jr.apps.googleusercontent.com'
   const navigate = useNavigate();
   const goLoginPage = () => {
     navigate('/login');
@@ -17,6 +20,15 @@ const HomeContainer = () => {
   const goKakaoLogin = async () => {
     document.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=fd105bdb5cdd612c620fde133e80b5d3&redirect_uri=${encodeURI('http://localhost:3001/kakaologin')}&response_type=code`
   }
+  const googleLogin = useCallback((response) => {
+    const userInfo = {
+      profileImg: response.profileObj.imageUrl,
+      email: response.profileObj.email,
+      name: response.profileObj.name
+    }
+    //setUserInfo(userInfo);
+    //setIsLogin(true);
+  }, [])
 
   return (
     <div>
@@ -36,9 +48,14 @@ const HomeContainer = () => {
         <Row>
           <button className='kakao-login-button' onClick={goKakaoLogin}>카카오톡</button>
         </Row>
-        <Row>
-          <button className='apple-login-button'>Apple</button>
-        </Row>
+        <GoogleOAuthProvider>
+          <GoogleLogin
+            clientId={googleClientId}
+            buttonText="Login"
+            onSuccess={googleLogin}
+            onFailure={(res) => console.log(res)}
+            cookiePolicy={'single_host_origin'} />
+        </GoogleOAuthProvider>
         <Row>
           <button className='login-button' onClick={goLoginPage}>로그인</button>
         </Row>
