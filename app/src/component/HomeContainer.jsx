@@ -51,7 +51,7 @@ const HomeContainer = () => {
         <Row>
           <GoogleOAuthProvider clientId={clientId}>
             <Routes>
-              <Route exact path='/' component={RenewalSelectSocialLoginPage} />
+              <Route exact path='/' element={<RenewalSelectSocialLoginPage />} />
             </Routes>
           </GoogleOAuthProvider>
         </Row>
