@@ -35,9 +35,12 @@ export default function App() {
 
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login setAuthenticate={setAuthenticate} />} />
+        {/* 
+        TODO - reidrect 기능 넣을떄 사용할것임,
         <Route element={<PrivateRoute />}>
           <Route path='/join' element={<Join />} />
-        </Route>
+        </Route> */}
+        <Route path='/join' element={<Join />} />
         <Route path='/pswordUpdate' element={<PswordUpdate />} />
         <Route path='/mypage' element={<Mypage />} />
         <Route path='/scheduleCreation' element={<ScheduleCreation />} />

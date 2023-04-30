@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap';
 import styled from "styled-components";
 import '../styles/button.css';
@@ -81,7 +81,7 @@ const Join = () => {
     console.log("result", JSON.stringify(result));
 
     setLoading(false);
-    alert('TODO-메인화면 개발 후 이동');
+    <Navigate to="/login" />;
   };
 
   // 인증코드 유효성체크

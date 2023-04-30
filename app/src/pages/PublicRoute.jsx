@@ -7,9 +7,6 @@ import { AuthContext } from "../context/auth-context";
 const PublicRoute = () => {
   //const auth = useContext(AuthContext);
 
-  if (1 == 1) {
-    alert("로그인이 필요한 기능입니다.");
-  }
 
   return <Navigate to="/" />;
 };
